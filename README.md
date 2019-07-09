@@ -7,12 +7,13 @@
 朱翊霏、杨韫睿、贾梦楠、王辉
 
 ### 三、开发环境
-采用Android Studio进行开发
-Android版本为5.1
+Android Studio 3.4.0
+Android版本5.1
+数据库采用mysql
 
 ### 四、开发流程
   - 7月8日：完成PRD，数据库设计，任务分工
-  - 7月9日：开发初步界面
+  - 7月9日：开发初步界面，完成数据库建立，PRD改进
   
 ### 五、学习资源
   - 1.git教程：https://www.liaoxuefeng.com/wiki/896043488029600
