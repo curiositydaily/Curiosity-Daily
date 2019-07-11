@@ -9,7 +9,7 @@
 ### 三、开发环境
 Android Studio 3.4.0
 Android版本5.1
-数据库采用mysql
+数据库采用SQLite
 
 ### 四、开发流程
   - 7月8日：完成PRD，数据库设计，任务分工
