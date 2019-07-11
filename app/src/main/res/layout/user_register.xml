@@ -6,17 +6,17 @@
     <EditText
         android:id="@+id/numberUserRegister"
         android:layout_width="50dp"
-        android:layout_height="200dp" />
+        android:layout_height="50dp" />
 
     <EditText
         android:id="@+id/passwordUserRegister"
         android:layout_width="50dp"
-        android:layout_height="300dp" />
+        android:layout_height="80dp" />
 
     <EditText
         android:id="@+id/phonenumberUserRegister"
         android:layout_width="50dp"
-        android:layout_height="400dp" />
+        android:layout_height="100dp" />
 
     <TextView
         android:id="@+id/test"
