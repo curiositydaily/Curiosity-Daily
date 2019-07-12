@@ -22,7 +22,7 @@ public class UserInfo {
 
     public UserInfo(){}
     public UserInfo(int id,String image,String name,String introduction){
-        this.id = id;
+        super();
         this.image = image;
         this.name = name;
         this.introduction = introduction;
@@ -39,5 +39,13 @@ public class UserInfo {
     public String getImage(){ return image;}
     public String getName(){ return name;}
     public String getIntroduction(){ return introduction;}
+
+    // toString
+    public String toString(){
+        return "UserLogin [id=" + id
+                + ",image="+image
+                + ",name="+name
+                + ",introduction="+introduction+"]";
+    }
 
 }

@@ -42,7 +42,7 @@ public class SQLiteDB {
                     db.execSQL("insert into user_login(number,password) values(?,?)",
                             new String[]{userLogin.getNumber().toString(),userLogin.getPassword().toString()});
                 }catch (Exception e){
-                    Log.d("错误",e.getMessage().toString());
+                    Log.d("注册错误",e.getMessage().toString());
                 }
                 return 1;
             }
@@ -81,4 +81,19 @@ public class SQLiteDB {
         }
         return 0;
     }
+
+
+    // 保存用户个人信息
+    public boolean saveUserInfo(UserInfo userInfo){
+        if(userInfo != null){
+            try {
+                db.execSQL("insert into user_login(iamge,name,introduction) values(?,?,?)",
+                        new String[]{userInfo.getImage().toString(),userInfo.getName().toString(),userInfo.getIntroduction()});
+            }catch (Exception e){
+                Log.d("保存用户个人信息错误",e.getMessage().toString());
+            }
+        }
+        return false;
+    }
+    
 }

@@ -15,6 +15,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // 建立用户登录表语句
     public static final String CREATE_USERLOGIN = "create table user_login(id integer primary key autoincrement,number text,password text)";
+    // 建立用户信息表语句
+    public static final String CREATE_USERINFO = "create table user_info(id integer primary key autoincrement,image text,name text,introduction text)";
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,int version) {
         super(context, name, null, version);
@@ -25,6 +27,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // 创建用户登录表user_login
         db.execSQL(CREATE_USERLOGIN);
+        // 创建用户信息表user_info
+        db.execSQL(CREATE_USERINFO);
     }
 
     @Override

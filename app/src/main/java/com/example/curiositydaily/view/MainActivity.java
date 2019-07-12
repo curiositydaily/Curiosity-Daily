@@ -9,7 +9,6 @@ import com.example.curiositydaily.helper.DatabaseHelper;
 import com.example.curiositydaily.model.SQLiteDB;
 import com.example.curiositydaily.model.UserInfo;
 import com.example.curiositydaily.model.UserLogin;
-import com.example.curiositydaily.service.UserService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;

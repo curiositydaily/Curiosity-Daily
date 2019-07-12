@@ -15,7 +15,6 @@ import com.example.curiositydaily.R;
 import com.example.curiositydaily.helper.DatabaseHelper;
 import com.example.curiositydaily.model.SQLiteDB;
 import com.example.curiositydaily.model.UserLogin;
-import com.example.curiositydaily.service.UserService;
 
 public class UserRegisterActivity extends AppCompatActivity {
     private DatabaseHelper db;
