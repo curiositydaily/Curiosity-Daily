@@ -3,24 +3,49 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- 注册账号 -->
+    <TextView
+        android:id="@+id/numberTextUserRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册账号"
+        android:textSize="20sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"/>
+
     <EditText
         android:id="@+id/numberUserRegister"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:maxLines="1"/>
+
+    <!-- 输入密码 -->
+    <TextView
+        android:id="@+id/passwordTextUserRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="输入密码"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
         android:id="@+id/passwordUserRegister"
-        android:layout_width="50dp"
-        android:layout_height="80dp" />
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:maxLines="1"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" />
 
-    <EditText
-        android:id="@+id/phonenumberUserRegister"
-        android:layout_width="50dp"
-        android:layout_height="100dp" />
-
-    <TextView
-        android:id="@+id/test"
+    <Button
+        android:id="@+id/registerUserRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="注册界面"/>
+        android:text="注册"
+        android:textSize="30sp" />
 </LinearLayout>
