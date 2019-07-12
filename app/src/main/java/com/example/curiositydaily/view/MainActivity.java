@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.curiositydaily.R;
 import com.example.curiositydaily.helper.DatabaseHelper;
+import com.example.curiositydaily.model.SQLiteDB;
 import com.example.curiositydaily.model.UserInfo;
 import com.example.curiositydaily.model.UserLogin;
 import com.example.curiositydaily.service.UserService;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
+        // 首先显示登录界面
         setContentView(R.layout.user_login);
 
         Button loginUserLogin = (Button)findViewById(R.id.loginUserLogin);
@@ -42,28 +43,33 @@ public class MainActivity extends AppCompatActivity {
         loginUserLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(isEmpty()==true){System.out.println("11111");}
+                if(isEmpty()==true){System.out.println("信息填写不完整");}
                 else{
-                    // 数据库查询
-                    String number = numberUserLogin.getText().toString();
-                    String password = passwordUserLogin.getText().toString();
+                    System.out.println("信息填写完整");
+
+                    String number = numberUserLogin.getText().toString().trim();
+                    String password = passwordUserLogin.getText().toString().trim();
                     Log.i("TAG",number+"_"+password);
 
-                    boolean flagLogin = isLogin(number,password);
-                    if(flagLogin){
+                    UserLogin userLogin = new UserLogin();
+                    userLogin.setNumber(number);
+                    userLogin.setPassword(password);
+
+                    int resUserLogin = SQLiteDB.getInstance(getApplicationContext()).queryUserLogin(number,password);
+                    if(resUserLogin == 1){
                         // 登录成功跳转到主页面
                         Toast.makeText(MainActivity.this,"登录成功",Toast.LENGTH_LONG).show();
-
                         setContentView(R.layout.activity_main);
-                        // 显示按钮菜单
-                        BottomNavigationView navView = findViewById(R.id.nav_view);
-                        mTextMessage = findViewById(R.id.message);
-                        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-                    }else{
-                        // 登录失败，提示重新登录
-                        Toast.makeText(MainActivity.this,"账号或密码错误，请重新登录或注册",Toast.LENGTH_LONG).show();
-                    }
 
+                        // 这里写Fragement
+
+                    }else if(resUserLogin == 0){
+                        // 用户名不存在
+                        Toast.makeText(MainActivity.this,"用户名不存在，请重新登录或注册",Toast.LENGTH_LONG).show();
+                    }else{
+                        // 密码错误
+                        Toast.makeText(MainActivity.this,"密码错误，请重新登录",Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -78,16 +84,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 显示按钮菜单
-//        BottomNavigationView navView = findViewById(R.id.nav_view);
-//        mTextMessage = findViewById(R.id.message);
-//        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-
-    // 验证登录
-    public boolean isLogin(String number,String password){
-        return db.getUserLogin(number,password);
-}
 
     // 判断登录账号与登录密码是否为空
     public boolean isEmpty(){
@@ -107,25 +104,25 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-    // 按钮菜单
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_design);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_person);
-                    return true;
-            }
-            return false;
-        }
-    };
+//
+//    // 按钮菜单
+//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+//            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+//
+//        @Override
+//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//            switch (item.getItemId()) {
+//                case R.id.navigation_home:
+//                    mTextMessage.setText(R.string.title_home);
+//                    return true;
+//                case R.id.navigation_dashboard:
+//                    mTextMessage.setText(R.string.title_design);
+//                    return true;
+//                case R.id.navigation_notifications:
+//                    mTextMessage.setText(R.string.title_person);
+//                    return true;
+//            }
+//            return false;
+//        }
+//    };
 }

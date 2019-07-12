@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.curiositydaily.R;
 import com.example.curiositydaily.helper.DatabaseHelper;
+import com.example.curiositydaily.model.SQLiteDB;
 import com.example.curiositydaily.model.UserLogin;
 import com.example.curiositydaily.service.UserService;
 
@@ -24,7 +25,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_register);
 
-        Button registerUserRegister = (Button)findViewById(R.id.registerUserRegister);
+        final Button registerUserRegister = (Button)findViewById(R.id.registerUserRegister);
         final EditText numberUserRegister = (EditText)findViewById(R.id.numberUserRegister);
         final EditText passwordUserRegister = (EditText)findViewById(R.id.passwordUserRegister);
 
@@ -36,26 +37,26 @@ public class UserRegisterActivity extends AppCompatActivity {
                 else{System.out.println("完整填写信息");
                     String number = numberUserRegister.getText().toString();
                     String password = passwordUserRegister.getText().toString();
-                    Log.i("TAG",number+"_"+password);
 
-                    long ID = createUserLogin(number,password);
-                    if(ID >= 0 ){
-                        // 注册成功跳转到登录界面
+                    UserLogin userLogin = new UserLogin();
+                    userLogin.setNumber(number);
+                    userLogin.setPassword(password);
+
+                    int resUserRegister = SQLiteDB.getInstance(getApplicationContext()).saveUserLogin(userLogin);
+                    if( resUserRegister== 1){
+                        // 注册成功
                         Toast.makeText(UserRegisterActivity.this,"注册成功请登录",Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(UserRegisterActivity.this,MainActivity.class);
-                        startActivity(intent);
+                    }else if(resUserRegister == -1){
+                        // 登录账号已存在
+                        Toast.makeText(UserRegisterActivity.this,"账号已存在，请登录",Toast.LENGTH_LONG).show();
                     }else{
                         // 注册失败
-                        Toast.makeText(UserRegisterActivity.this,"注册失败请重试",Toast.LENGTH_LONG).show();
                     }
+                    Intent intent = new Intent(UserRegisterActivity.this,MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
-    }
-
-    private long createUserLogin(String number,String password){
-        long id = db.createUser(number,password);
-        return id;
     }
 
     public boolean isEmpty(){
