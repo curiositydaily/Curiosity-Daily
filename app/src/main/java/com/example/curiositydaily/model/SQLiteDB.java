@@ -51,17 +51,17 @@ public class SQLiteDB {
     }
 
     // 读取用户登录信息
-    public List<UserLogin> loadUserLogin(){
+    public List<UserLogin> loadUserLogin() {
         List<UserLogin> list = new ArrayList<UserLogin>();
-        Cursor cursor = db.query("UserLogin",null,null,null,null,null,null);
-        if(cursor.moveToFirst()){
-            do{
+        Cursor cursor = db.query("UserLogin", null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
                 UserLogin userLogin = new UserLogin();
                 userLogin.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 userLogin.setNumber(cursor.getString(cursor.getColumnIndex("number")));
                 userLogin.setPassword(cursor.getString(cursor.getColumnIndex("password")));
                 list.add(userLogin);
-            }while (cursor.moveToFirst());
+            } while (cursor.moveToFirst());
         }
         return list;
     }
