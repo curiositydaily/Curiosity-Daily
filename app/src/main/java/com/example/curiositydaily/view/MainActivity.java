@@ -2,6 +2,7 @@ package com.example.curiositydaily.view;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.curiositydaily.R;
@@ -9,10 +10,13 @@ import com.example.curiositydaily.helper.DatabaseHelper;
 import com.example.curiositydaily.model.SQLiteDB;
 import com.example.curiositydaily.model.UserInfo;
 import com.example.curiositydaily.model.UserLogin;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,12 +24,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener,
+    DesignFragment.OnFragmentInteractionListener, MineFragment.OnFragmentInteractionListener{
     private TextView mTextMessage;
     private DatabaseHelper db;
+    private RadioGroup rg_tab_bar;
+    private RadioButton rb_home;
+    private HomeFragment homeFragment;
+    private DesignFragment designFragment;
+    private MineFragment mineFragment;
+    private FragmentManager fManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +74,15 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"登录成功",Toast.LENGTH_LONG).show();
                         setContentView(R.layout.activity_main);
 
-                        // 这里写Fragement
+                        // 这里写Fragment
+                        fManager=getSupportFragmentManager();
+                        rg_tab_bar = (RadioGroup)findViewById(R.id.rg_tab_bar);
+                        //底部按钮监听
+                        rg_tab_bar.setOnCheckedChangeListener(new TabOnCheckedChangeListener());
+
+                        rb_home = (RadioButton) findViewById(R.id.rb_home);
+                        //默认选择主页
+                        rb_home.setChecked(true);
 
                     }else if(resUserLogin == 0){
                         // 用户名不存在
@@ -103,25 +125,61 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-//
-//    // 按钮菜单
-//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-//            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-//
-//        @Override
-//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//            switch (item.getItemId()) {
-//                case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
-//                    return true;
-//                case R.id.navigation_dashboard:
-//                    mTextMessage.setText(R.string.title_design);
-//                    return true;
-//                case R.id.navigation_notifications:
-//                    mTextMessage.setText(R.string.title_person);
-//                    return true;
-//            }
-//            return false;
-//        }
-//    };
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+    }
+
+    //底部按钮监听的内部类
+    private class TabOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            FragmentTransaction fTransaction = fManager.beginTransaction();
+            //隐藏所有的fragment
+            hideAllFragment(fTransaction);
+            switch (checkedId) {
+                case R.id.rb_home:
+
+                    if (homeFragment == null) {
+                        homeFragment = new HomeFragment();
+                        fTransaction.add(R.id.ly_content, homeFragment);
+                    } else {
+                        fTransaction.show(homeFragment);
+                    }
+                    break;
+                case R.id.rb_design:
+
+                    if (designFragment == null) {
+                        designFragment = new DesignFragment();
+                        fTransaction.add(R.id.ly_content, designFragment);
+                    } else {
+                        fTransaction.show(designFragment);
+                    }
+                    break;
+                case R.id.rb_mine:
+
+                    if (mineFragment == null) {
+                        mineFragment = new MineFragment();
+                        fTransaction.add(R.id.ly_content, mineFragment);
+                    } else {
+                        fTransaction.show(mineFragment);
+                    }
+                    break;
+            }
+            //提交事务
+            fTransaction.commit();
+        }
+    }
+    private void hideAllFragment(FragmentTransaction fragmentTransaction){
+        if(homeFragment!=null)fragmentTransaction.hide(homeFragment);
+        if(designFragment!=null)fragmentTransaction.hide(designFragment);
+        if(mineFragment!=null)fragmentTransaction.hide(mineFragment);
+    }
 }
