@@ -6,11 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.util.Log;
 
+import com.example.curiositydaily.R;
 import com.example.curiositydaily.helper.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.example.curiositydaily.model.UserInfo.ID;
 
 public class SQLiteDB {
     public static final String DB_NAME = "curiosity_db";
@@ -30,6 +33,7 @@ public class SQLiteDB {
         return sqliteDB;
     }
 
+    // user_login
     // 保存用户登录信息
     public int saveUserLogin(UserLogin userLogin){
         if(userLogin != null){
@@ -82,7 +86,7 @@ public class SQLiteDB {
         return 0;
     }
 
-
+    // user_info
     // 保存用户个人信息
     public boolean saveUserInfo(UserInfo userInfo){
         if(userInfo != null){
@@ -95,5 +99,24 @@ public class SQLiteDB {
         }
         return false;
     }
+
+    /* 查询用户个人信息，通过user_login的id来对应查找，返回登录对象
+        一个id对应一个登陆账号&用户信息   */
+    public UserInfo queryUserInfo(int id){
+        Cursor cursor = db.query("UserLogin", null, ID+"=?",new String[]{"id"}, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            UserInfo userInfo = new UserInfo();
+            do {
+                userInfo.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                userInfo.setName(cursor.getString(cursor.getColumnIndex("name")));
+                userInfo.setImage(cursor.getString(cursor.getColumnIndex("image")));
+                userInfo.setIntroduction(cursor.getString(cursor.getColumnIndex("introduction")));
+            } while (cursor.moveToFirst());
+            return userInfo;
+        }
+        return null;
+    }
+
+
 
 }
