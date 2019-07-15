@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.curiositydaily.R;
 import com.example.curiositydaily.helper.DatabaseHelper;
+import com.example.curiositydaily.view.DesignFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -137,5 +138,20 @@ public class SQLiteDB {
         return list;
     }
 
-
+    /* design_content 专题内容表 */
+    // 读取专题内容表信息
+    public List<DesignContent> loadDesignContent(){
+        List<DesignContent> list = new ArrayList<DesignContent>();
+        Cursor cursor = db.query("design_content",null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                DesignContent designContent =  new DesignContent();
+                designContent.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                designContent.setDesignId(cursor.getInt(cursor.getColumnIndex("design_id")));
+                designContent.setImageUrl(cursor.getString(cursor.getColumnIndex("image_url")));
+                list.add(designContent);
+            }while(cursor.moveToFirst());
+        }
+        return list;
+    }
 }
