@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.RecommodContentActivity"></activity>
         <!-- 主活动 -->
         <activity
             android:name=".view.MainActivity"
@@ -18,13 +19,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- 注册活动 -->
-        <activity android:name=".view.UserRegisterActivity">
-
-        </activity>
-
+        </activity> <!-- 注册活动 -->
+        <activity android:name=".view.UserRegisterActivity"></activity>
     </application>
 
 </manifest>

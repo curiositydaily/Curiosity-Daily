@@ -1,10 +1,14 @@
 package com.example.curiositydaily.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,9 @@ import android.widget.TextView;
 
 import com.example.curiositydaily.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,11 +31,15 @@ import com.example.curiositydaily.R;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment{
+public class HomeFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private ViewPager viewPager;
+    private TextView textView1,textView2;
+    private List<Fragment> fragmentList;
+    private VpAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -74,10 +85,26 @@ public class HomeFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
-        TextView txt_home = (TextView)view.findViewById(R.id.txt_home);
-        txt_home.setText("首页");
+//        TextView txt_home = (TextView)view.findViewById(R.id.txt_home);
+//        txt_home.setText("首页");
+        initView(view);
 
         return view;
+    }
+    private void initView(View view){
+        viewPager = view.findViewById(R.id.home_vp_fragment);
+        textView1 = view.findViewById(R.id.home_tab_menu_recommod);
+        textView2 = view.findViewById(R.id.home_tab_menu_attention);
+        viewPager.addOnPageChangeListener(this);
+        textView1.setOnClickListener(this);
+        textView2.setOnClickListener(this);
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new RecommodFragment());
+        fragmentList.add(new AttentionFragment());
+        mAdapter = new VpAdapter(getChildFragmentManager());
+        viewPager.setAdapter(mAdapter);
+        resetTextViewColor();
+        textView1.setTextColor(Color.parseColor("#FFC800"));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,6 +134,45 @@ public class HomeFragment extends Fragment{
         mListener = null;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.home_tab_menu_recommod:
+                viewPager.setCurrentItem(0);
+                break;
+            case R.id.home_tab_menu_attention:
+                viewPager.setCurrentItem(1);
+                break;
+        }
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        resetTextViewColor();
+        switch(position){
+            case 0:
+                textView1.setTextColor(Color.parseColor("#FFC800"));
+                break;
+            case 1:
+                textView2.setTextColor(Color.parseColor("#FFC800"));
+                break;
+
+
+        }
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -122,5 +188,25 @@ public class HomeFragment extends Fragment{
         void onFragmentInteraction(Uri uri);
 
         void onCheckedChanged(RadioGroup radioGroup, int i);
+    }
+    private void resetTextViewColor(){
+        textView1.setTextColor(Color.parseColor("#4a4a4a"));
+        textView2.setTextColor(Color.parseColor("#4a4a4a"));
+    }
+    class VpAdapter extends FragmentPagerAdapter{
+
+        public VpAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
     }
 }
