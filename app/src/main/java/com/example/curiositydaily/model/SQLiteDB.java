@@ -145,10 +145,11 @@ public class SQLiteDB {
             try {
                 db.execSQL("insert into user_design(name,type,introduction,commendation) values(?,?,?,?)",
                         new String[]{userDesign.getName().toString(), String.valueOf(userDesign.getType()), userDesign.getIntroduction(), String.valueOf(userDesign.getCommendation())});
+                return true;
             } catch (Exception e) {
                 Log.d("插入专题表信息错误", e.getMessage().toString());
             }
-            return true;
+            return false;
         }
         return false;
     }
