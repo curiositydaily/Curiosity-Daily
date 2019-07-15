@@ -1,11 +1,11 @@
 package com.example.curiositydaily.model;
 
 public class UserInfo {
-    public static final String TABLE_NAME = "user_info";
-    public static final String ID = "id";
-    public static final String IMAGE = "image";
-    public static final String NAME = "name";
-    public static final String INTRODUCTION = "introduction";
+    public static final String TABLE_NAME = "user_info";        // 数据表名
+    public static final String ID = "id";                       // 用户信息id
+    public static final String IMAGE = "image";                 // 用户头像
+    public static final String NAME = "name";                   // 用户昵称
+    public static final String INTRODUCTION = "introduction";   // 用户介绍
 
     private int id;
     private String image;
@@ -42,7 +42,7 @@ public class UserInfo {
 
     // toString
     public String toString(){
-        return "UserLogin [id=" + id
+        return "UserInfo [id=" + id
                 + ",image="+image
                 + ",name="+name
                 + ",introduction="+introduction+"]";

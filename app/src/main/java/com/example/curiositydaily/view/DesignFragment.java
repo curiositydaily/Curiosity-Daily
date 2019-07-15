@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.curiositydaily.R;
+import com.example.curiositydaily.model.SQLiteDB;
+import com.example.curiositydaily.model.UserDesign;
 
 
 /**
@@ -73,6 +75,9 @@ public class DesignFragment extends Fragment{
         TextView txt_design = (TextView) view.findViewById(R.id.txt_design);
         txt_design.setText("设计");
 
+        UserDesign userDesign1 = new UserDesign(1,"好看的壁纸万里挑一",0,"多种系列满足你的所有需求",20);
+        if(SQLiteDB.getInstance(getContext()).saveUserDesign(userDesign1)) System.out.println("插入第1条设计专题成功!");
+        else System.out.println("插入第1条设计专题失败!");
 
         return view;
     }
