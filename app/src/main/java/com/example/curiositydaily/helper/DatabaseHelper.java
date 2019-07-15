@@ -20,7 +20,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // 建立设计专题表
     public static final String CREATE_USERDESIGN = "create table user_design(id integer primary key autoincrement,name text,type integer,introduction text,commendation integer)";
     // 建立专题内容表
-    public static final String CREATE_DESIGNCONTENT = "create table design_content(id integer primary key autonicrement,design_id integer,image_url text)";
+    public static final String CREATE_DESIGNCONTENT = "create table design_content(id integer primary key autoincrement,design_id integer,image_url text)";
+    // 建立发布文章表
+    public static final String CREATE_USERARTICLE = "create table user_article(id integer primary key autoincrement,user_id integer,title text,content text,commendation integer)";
+    // 建立关注表
+    public static final String CREATE_USERATTENTION = "create table user_attention(id integer primary key autoincrement,user_id integer)";
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,int version) {
         super(context, name, null, version);
@@ -37,6 +41,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_USERDESIGN);
         // 创建专题内容表design_content
         db.execSQL(CREATE_DESIGNCONTENT);
+        // 创建发布文章表user_article
+        db.execSQL(CREATE_USERARTICLE);
+        // 创建关注表user_attention
+        db.execSQL(CREATE_USERATTENTION);
     }
 
     @Override
