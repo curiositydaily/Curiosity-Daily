@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFr
     private DesignFragment designFragment;
     private MineFragment mineFragment;
     private FragmentManager fManager;
-    private String test = "test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
