@@ -1,26 +1,20 @@
 package com.example.curiositydaily.view;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.curiositydaily.R;
 import com.example.curiositydaily.helper.DatabaseHelper;
 import com.example.curiositydaily.model.SQLiteDB;
-import com.example.curiositydaily.model.UserInfo;
 import com.example.curiositydaily.model.UserLogin;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,9 +92,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFr
         registerUserLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                // 跳转注册界面
-                Intent intent = new Intent(MainActivity.this,UserRegisterActivity.class);
-                startActivity(intent);
+            // 跳转注册界面
+            Intent intent = new Intent(MainActivity.this,UserRegisterActivity.class);
+            startActivity(intent);
             }
         });
 

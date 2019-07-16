@@ -1,22 +1,36 @@
 package com.example.curiositydaily.view;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.ContentFrameLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.curiositydaily.R;
+import com.example.curiositydaily.adapter.CustomListAdapter;
+import com.example.curiositydaily.app.AppController;
 import com.example.curiositydaily.model.SQLiteDB;
 import com.example.curiositydaily.model.UserDesign;
 
+import org.json.JSONArray;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +44,23 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class DesignFragment extends Fragment{
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    // url
+    private static final String url = "https://api.androidhive.info/json/movies.json";
+    private ProgressDialog pDialog;
+    private List<UserDesign> userDesignsList = new ArrayList<UserDesign>();
+    private ListView listView;
+    private CustomListAdapter adapter;
+
+    //test
+    private String name;
+    private String image;
+    private int type;
+    private int commendation;
+    private String introduction;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,18 +72,8 @@ public class DesignFragment extends Fragment{
 
     private OnFragmentInteractionListener mListener;
 
-    public DesignFragment() {
-        // Required empty public constructor
-    }
+    public DesignFragment() { }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DesignFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static DesignFragment newInstance(String param1, String param2) {
         DesignFragment fragment = new DesignFragment();
@@ -89,8 +110,99 @@ public class DesignFragment extends Fragment{
             System.out.println(ud.toString());
         }
 
+//        this.getActivity().setContentView(R.layout.activity_design);
+//        this.getActivity().getWindow().setStatusBarColor(0xffffcc66);
+//        listView = (ListView) this.getActivity().findViewById(R.id.list);
+
+        listView = (ListView)view.findViewById(R.id.list);
+        adapter = new CustomListAdapter(getActivity(), userDesignsList);
+        listView.setAdapter(adapter);
+
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1b1b1b")));
+
+        // 创建Volley响应对象
+        JsonArrayRequest movieReq = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d(TAG, response.toString());
+                hidePDialog();
+
+                InputStreamReader inputStreamReader;
+                try {
+                    inputStreamReader = new InputStreamReader(getActivity().getAssets().open("test.json"),"UTF-8");
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    String line;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    int i=0,index=0;
+                    while ((line = bufferedReader.readLine()) != null){
+                        if(i==1){ name=line.substring(17,line.length()-2); }
+                        if(i==2){ image=line.substring(18,line.length()-2); }
+                        if(i==3){
+                            String demo=line.substring(16,line.length()-1);
+                            type=Integer.valueOf(demo.toString());
+                        }
+                        if(i==4){
+                            String demo=line.substring(24,line.length()-1);
+                            commendation=Integer.valueOf(demo.toString());
+                        }
+                        if(i==5){
+                            introduction = line.substring(25,line.length()-1);
+                        }
+                        if(i==6){
+                            UserDesign userDesign = new UserDesign();
+                            userDesign.setId(index);
+                            userDesign.setName(name);
+                            userDesign.setImage(image);
+                            userDesign.setType(type);
+                            userDesign.setCommendation(commendation);
+                            userDesign.setIntroduction(introduction);
+                            System.out.println(userDesign.toString());
+                            userDesignsList.add(userDesign);
+                        }
+                        if(i==7){ i=0;index++; }
+                        stringBuilder.append(line);
+                        i++;
+                    }
+                    inputStreamReader.close();
+                    bufferedReader.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // 通知有关数据更改以便能显示更新后的数据
+                adapter.notifyDataSetChanged();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                hidePDialog();
+            }
+        });
+
+        // 加入队列
+        AppController.getInstance().addToRequestQueue(movieReq);
         return view;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        hidePDialog();
+    }
+
+    private void hidePDialog() {
+        if (pDialog != null) {
+            pDialog.dismiss();
+            pDialog = null;
+        }
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -1,0 +1,49 @@
+[{
+        "name": "打造你的专属壁纸",
+        "image": "https://api.androidhive.info/json/movies/15.jpg",
+        "type": 1,
+        "commendation": 20,
+        "introduction": "多种样式供你选择~"
+},
+    {
+        "name": "好看的头像万里挑一",
+        "image": "https://api.androidhive.info/json/movies/8.jpg",
+        "type": 0,
+        "commendation": 50,
+        "introduction": "满足你的所有需求~"
+    },
+    {
+        "name": "夏日壁纸",
+        "image": "https://api.androidhive.info/json/movies/13.jpg",
+        "type": 1,
+        "commendation": 100,
+        "introduction": "给这个夏天降降温"
+    },
+    {
+        "name": "超炫酷头像合辑",
+        "image": "https://api.androidhive.info/json/movies/4.jpg",
+        "type": 0,
+        "commendation": 35,
+        "introduction": "今天也很酷"
+    },
+    {
+        "name": "呆萌头像大盘点~",
+        "image": "https://api.androidhive.info/json/movies/11.jpg",
+        "type": 0,
+        "commendation": 120,
+        "introduction": "小黄人专题"
+    },
+    {
+        "name": "沙尘飞扬",
+        "image": "https://api.androidhive.info/json/movies/1.jpg",
+        "type": 0,
+        "commendation": 20,
+        "introduction": "那些战场上的飒爽英姿！"
+    },
+    {
+        "name": "蜘蛛侠——我的童年英雄",
+        "image": "https://api.androidhive.info/json/movies/7.jpg",
+        "type": 1,
+        "commendation": 35,
+        "introduction": "我有一个英雄梦"
+    }]

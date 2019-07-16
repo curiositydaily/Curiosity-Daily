@@ -3,6 +3,7 @@
     package="com.example.curiositydaily">
 
     <application
+        android:name="com.example.curiositydaily.app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,8 +20,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 注册活动 -->
+        </activity>
+
+        <!-- 注册活动 -->
         <activity android:name=".view.UserRegisterActivity"></activity>
+
     </application>
 
 </manifest>
