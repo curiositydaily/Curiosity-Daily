@@ -124,8 +124,8 @@ public class SQLiteDB {
     // 读取设计专题表信息
     public List<UserDesign> loadUserDesign() {
         List<UserDesign> list = new ArrayList<UserDesign>();
-        Cursor cursor = db.query("user_design", null, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
+        Cursor cursor = db.rawQuery("select * from user_design ",null);
+        if (cursor != null && cursor.moveToFirst()) {
             do {
                 UserDesign userDesign = new UserDesign();
                 userDesign.setId(cursor.getInt(cursor.getColumnIndex("id")));
@@ -134,7 +134,7 @@ public class SQLiteDB {
                 userDesign.setIntroduction(cursor.getString(cursor.getColumnIndex("introduction")));
                 userDesign.setCommendation(cursor.getInt(cursor.getColumnIndex("commendation")));
                 list.add(userDesign);
-            } while (cursor.moveToFirst());
+            } while (cursor.moveToNext());
         }
         return list;
     }
@@ -159,14 +159,14 @@ public class SQLiteDB {
     public List<DesignContent> loadDesignContent(){
         List<DesignContent> list = new ArrayList<DesignContent>();
         Cursor cursor = db.query("design_content",null,null,null,null,null,null);
-        if(cursor.moveToFirst()){
+        if(cursor != null && cursor.moveToFirst()){
             do{
                 DesignContent designContent =  new DesignContent();
                 designContent.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 designContent.setDesignId(cursor.getInt(cursor.getColumnIndex("design_id")));
                 designContent.setImageUrl(cursor.getString(cursor.getColumnIndex("image_url")));
                 list.add(designContent);
-            }while(cursor.moveToFirst());
+            }while(cursor.moveToNext());
         }
         return list;
     }
@@ -196,7 +196,7 @@ public class SQLiteDB {
     public List<UserArticle> loadUserArticle(){
         List<UserArticle> list = new ArrayList<UserArticle>();
         Cursor cursor = db.query("user_article",null,null,null,null,null,null);
-        if(cursor.moveToFirst()){
+        if(cursor!=null && cursor.moveToFirst()){
             do{
                 UserArticle userArticle =  new UserArticle();
                 userArticle.setId(cursor.getInt(cursor.getColumnIndex("id")));
@@ -205,7 +205,7 @@ public class SQLiteDB {
                 userArticle.setContent(cursor.getString(cursor.getColumnIndex("content")));
                 userArticle.setCommendation(cursor.getInt(cursor.getColumnIndex("commendation")));
                 list.add(userArticle);
-            }while(cursor.moveToFirst());
+            }while(cursor.moveToNext());
         }
         return list;
     }
@@ -214,7 +214,7 @@ public class SQLiteDB {
     public UserArticle getContentByTitle(String title){
         UserArticle userArticle = new UserArticle();
         Cursor cursor = db.query("user_article", null, TITLE+"=?",new String[]{"title"}, null, null, null, null);
-        if (cursor.moveToFirst()) {
+        if (cursor!=null && cursor.moveToFirst()) {
             UserInfo userInfo = new UserInfo();
             do {
                 userArticle.setId(cursor.getInt(cursor.getColumnIndex("id")));
@@ -222,7 +222,7 @@ public class SQLiteDB {
                 userArticle.setTitle(cursor.getString(cursor.getColumnIndex("title")));
                 userArticle.setContent(cursor.getString(cursor.getColumnIndex("content")));
                 userArticle.setCommendation(cursor.getInt(cursor.getColumnIndex("commendation")));
-            } while (cursor.moveToFirst());
+            } while (cursor.moveToNext());
             return userArticle;
         }
         return null;
@@ -233,13 +233,13 @@ public class SQLiteDB {
     public List<UserAttention> loadUserAttention(){
         List<UserAttention> list = new ArrayList<UserAttention>();
         Cursor cursor = db.query("user_attention",null,null,null,null,null,null);
-        if(cursor.moveToFirst()){
+        if(cursor!=null && cursor.moveToFirst()){
             do{
                 UserAttention userAttention = new UserAttention();
                 userAttention.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 userAttention.setAttentionId(cursor.getInt(cursor.getColumnIndex("user_id")));
                 list.add(userAttention);
-            }while (cursor.moveToFirst());
+            }while (cursor.moveToNext());
         }
         return list;
     }

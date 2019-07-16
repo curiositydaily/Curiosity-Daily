@@ -4,7 +4,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.ContentFrameLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,9 @@ import android.widget.TextView;
 import com.example.curiositydaily.R;
 import com.example.curiositydaily.model.SQLiteDB;
 import com.example.curiositydaily.model.UserDesign;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -72,12 +77,17 @@ public class DesignFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design, container, false);
-        TextView txt_design = (TextView) view.findViewById(R.id.txt_design);
-        txt_design.setText("设计");
 
-        UserDesign userDesign1 = new UserDesign(1,"好看的壁纸万里挑一",0,"多种系列满足你的所有需求",20);
-        if(SQLiteDB.getInstance(getContext()).saveUserDesign(userDesign1)) System.out.println("插入第1条设计专题成功!");
-        else System.out.println("插入第1条设计专题失败!");
+
+        // 初始化设计专题内容
+//        initUserDesign();
+
+        // 显示设计专题内容
+        List<UserDesign> test_list = new ArrayList<UserDesign>();
+        test_list = SQLiteDB.getInstance((getActivity().getApplicationContext())).loadUserDesign();
+        for( UserDesign ud : test_list){
+            System.out.println(ud.toString());
+        }
 
         return view;
     }
@@ -122,5 +132,35 @@ public class DesignFragment extends Fragment{
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    // 初始化设计专题内容
+    public void initUserDesign(){
+        UserDesign userDesign1 = new UserDesign();
+        userDesign1.setId(1);
+        userDesign1.setName("打造你的专属壁纸");
+        userDesign1.setType(1);
+        userDesign1.setIntroduction("多种样式供你选择");
+        userDesign1.setCommendation(20);
+        if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
+        else System.out.println("插入设计专题失败!");
+
+        userDesign1.setId(2);
+        userDesign1.setName("好看的头像万里挑一");
+        userDesign1.setType(0);
+        userDesign1.setIntroduction("满足你的所有需求");
+        userDesign1.setCommendation(50);
+        if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
+        else System.out.println("插入设计专题失败!");
+
+        userDesign1.setId(3);
+        userDesign1.setName("夏日壁纸");
+        userDesign1.setType(0);
+        userDesign1.setIntroduction("给夏天降降温");
+        userDesign1.setCommendation(100);
+        if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
+        else System.out.println("插入设计专题失败!");
+
     }
 }

@@ -35,7 +35,7 @@ public class UserDesign {
 
     // 设置
     public void setId(int id){ this.id = id;}
-    public void setName(String Name){ this.name = name;}
+    public void setName(String name){ this.name = name;}
     public void setType(int type){ this.type  =type;}
     public void setIntroduction(String introduction){ this.introduction = introduction;}
     public void setCommendation(int commendation){ this.commendation = commendation;}
@@ -50,7 +50,7 @@ public class UserDesign {
     // toString
     public String toString(){
         return "UserDesign [id=" + id
-                + ",design_id="+name
+                + ",name="+name
                 + ",type="+type
                 + ",introduction="+introduction
                 + ",commendation="+commendation+"]";
