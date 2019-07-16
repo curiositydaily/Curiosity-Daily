@@ -30,7 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener,
-    DesignFragment.OnFragmentInteractionListener, MineFragment.OnFragmentInteractionListener{
+    DesignFragment.OnFragmentInteractionListener, MineFragment.OnFragmentInteractionListener,RecommodFragment.OnFragmentInteractionListener,AttentionFragment.OnFragmentInteractionListener{
     private TextView mTextMessage;
     private DatabaseHelper db;
     private RadioGroup rg_tab_bar;
@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFr
     private DesignFragment designFragment;
     private MineFragment mineFragment;
     private FragmentManager fManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

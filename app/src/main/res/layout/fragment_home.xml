@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white">
-
-    <TextView
-        android:id="@+id/txt_home"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="呵呵"
-        android:textColor="@color/text_yellow"
-        android:textSize="20sp"/>
+        android:layout_height="36dp"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+        <TextView
+            android:id="@+id/home_tab_menu_recommod"
+            android:text="推荐"
+            style="@style/tab_menu_item"
+            tools:ignore="HardcodedText"/>
+        <TextView
+            android:id="@+id/home_tab_menu_attention"
+            android:text="关注"
+            style="@style/tab_menu_item"
+            tools:ignore="HardcodedText"/>
+    </LinearLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/home_vp_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>
