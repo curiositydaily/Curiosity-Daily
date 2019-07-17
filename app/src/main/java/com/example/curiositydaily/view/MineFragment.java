@@ -4,19 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.curiositydaily.R;
 
@@ -31,8 +27,15 @@ import com.example.curiositydaily.R;
  */
 public class MineFragment extends Fragment {
 
-    private FragmentManager fManager;
+    //private FragmentManager fManager;
+    //private Bitmap head;// 头像Bitmap
+    //@SuppressLint("SdCardPath")
+    //private static String path = "/sdcard/myHead/";// sd路径
+    //private ImageButton touxiang;
+    //private OnButtonClick onButtonClick;//2、定义接口成员变量
 
+    EditText name;
+    EditText sign;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -82,80 +85,220 @@ public class MineFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_mine, container,false);
         //TextView txt_mine = (TextView) view.findViewById(R.id.txt_mine);
         //txt_mine.setText("我的");
-        return view;
-    }
 
+        //touxiang = (ImageButton)view.findViewById(R.id.ib_head);
 
+        //按钮事件
+        //final Button btn1 = (Button)view.findViewById(R.id.rb_mine_article);
+        Button btn1 = (Button)view.findViewById(R.id.rb_mine_article);
+        Button btn2 = (Button)view.findViewById(R.id.rb_mine_commendation);
+        Button btn3 = (Button)view.findViewById(R.id.rb_mine_attention);
+        Button btn4 = (Button)view.findViewById(R.id.rb_mine_feedback);
+        Button btn5 = (Button)view.findViewById(R.id.rb_mine_protocol);
+        ImageButton ibtn = (ImageButton)view.findViewById(R.id.ib_head);
 
+        final EditText name = (EditText)view.findViewById(R.id.et_mine_info_name);
+        final EditText sign = (EditText)view.findViewById(R.id.et_mine_info_sign);
 
-    /* @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_mine, container, false);
-        rootView.findViewById(R.id.rb_mine_protocol).setOnClickListener(new View.OnClickListener() {
+        ibtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
+            public void onClick(View view) {
+                System.out.println("click imagebutton");
+                Toast.makeText(getActivity(),"个人资料",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), HeadActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("click button 1");
+                Toast.makeText(getActivity(),"1",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), MineArticle.class);
+                startActivity(intent);
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("click button 2");
+                Toast.makeText(getActivity(),"发现",Toast.LENGTH_LONG).show();
+                //Intent intent = new Intent(getActivity(),MineAttention.class);
+                //startActivity(intent);
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)  //将当前fragment加入到返回栈中
-                        .replace(R.id.container, new ProtocolFragment()).commit();
+                        .replace(R.id.ly_content, new DesignFragment()).commit();
             }
         });
-        return rootView;
-    }
-    private class ButtonListener implements View.OnClickListener {
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.rb_mine_protocol:
-                    Intent intent= new Intent(getActivity(),ProtocolActivity.class);
-                    startActivity(intent);
-                    break;
-            }
-        }
-    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Button button = (Button) getActivity().findViewById(R.id.rb_mine_protocol);
-        button.setOnClickListener(new View.OnClickListener() {
+        btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"ceshi",Toast.LENGTH_LONG).show();
+                System.out.println("click button 3");
+                Toast.makeText(getActivity(),"关注",Toast.LENGTH_LONG).show();
+                //Intent intent = new Intent(getActivity(),MineAttention.class);
+                //startActivity(intent);
+                getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)  //将当前fragment加入到返回栈中
+                        .replace(R.id.ly_content, new AttentionFragment()).commit();
             }
         });
-    }
 
-
-
-    private void hideAllFragment(FragmentTransaction fragmentTransaction){
-        //if(homeFragment!=null)fragmentTransaction.hide(homeFragment);
-        //if(designFragment!=null)fragmentTransaction.hide(designFragment);
-        //if(mineFragment!=null)fragmentTransaction.hide(mineFragment);
-    }
-
-    //监听切换
-    private class TabOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener{
-
-        ProtocolFragment protocolFragment;
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId){
-            FragmentTransaction fTransaction = fManager.beginTransaction();
-            hideAllFragment(fTransaction);//隐藏
-            switch (checkedId){
-                case R.id.rb_mine_protocol:
-                    if (protocolFragment == null) {
-                        protocolFragment = new ProtocolFragment();
-                        fTransaction.add(R.id.rb_mine_protocol,protocolFragment);
-                    } else {
-                        fTransaction.show(protocolFragment);
-                    }
-                    break;
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("click button 4");
+                Toast.makeText(getActivity(),"意见反馈",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+                startActivity(intent);
             }
-            fTransaction.commit();
-        }
+        });
+
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("click button 5");
+                Toast.makeText(getActivity(),"用户协议",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), MineProtocolActivity.class);
+                startActivity(intent);
+            }
+        });
+        //initView();
+        return view;
     }
-*/
+
+    /*
+    private void initView() {
+        //LL01=(LinearLayout)getActivity().findViewById(R.id.LL01);
+        //LL02=(LinearLayout)getActivity().findViewById(R.id.LL02);
+        //LL03=(LinearLayout)getActivity().findViewById(R.id.LL03);
+
+        touxiang = (ImageButton) Objects.requireNonNull(getActivity()).findViewById(R.id.ib_head);
+        Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");// 从SD卡中找头像，转换成Bitmap
+        if (bt != null) {
+            @SuppressWarnings("deprecation")
+            Drawable drawable = new BitmapDrawable(bt);// 转换成drawable
+            touxiang.setImageDrawable(drawable);
+        } else {
+
+        }
+       }
+    private void showTypeDialog() {
+        //显示对话框
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog dialog = builder.create();
+        View view = View.inflate(getActivity(), R.layout.dialog_select_photo, null);
+        TextView tv_select_gallery = (TextView) view.findViewById(R.id.tv_select_gallery);
+        TextView tv_select_camera = (TextView) view.findViewById(R.id.tv_select_camera);
+        tv_select_gallery.setOnClickListener(new View.OnClickListener() {// 在相册中选取
+        @Override
+    public void onClick(View v) {
+        Intent intent1 = new Intent(Intent.ACTION_PICK, null);
+        //打开文件
+        intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent1, 1);
+        dialog.dismiss();
+        }
+        });
+        tv_select_camera.setOnClickListener(new View.OnClickListener() {// 调用照相机
+    @Override
+    public void onClick(View v) {
+        Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent2.putExtra(MediaStore.EXTRA_OUTPUT,
+        Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "head.jpg")));
+        startActivityForResult(intent2, 2);// 采用ForResult打开
+        dialog.dismiss();
+        }
+        });
+        dialog.setView(view);
+        dialog.show();
+        }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+        case 1:
+        if (resultCode == RESULT_OK) {
+        cropPhoto(data.getData());// 裁剪图片
+        }
+
+        break;
+        case 2:
+        if (resultCode == RESULT_OK) {
+        File temp = new File(Environment.getExternalStorageDirectory() + "/head.jpg");
+        cropPhoto(Uri.fromFile(temp));// 裁剪图片
+        }
+
+        break;
+        case 3:
+        if (data != null) {
+        Bundle extras = data.getExtras();
+        //
+        assert extras != null;
+        head = extras.getParcelable("data");
+        if (head != null) {
+
+        setPicToView(head);// 保存在SD卡中
+        touxiang.setImageBitmap(head);// 用ImageButton显示出来
+        }
+        }
+        break;
+default:
+        break;
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+        }
+
+//调用系统的裁剪功能
+//public->private
+    private void cropPhoto(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 90);
+        intent.putExtra("outputY", 90);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, 3);
+        }
+
+    private void setPicToView(Bitmap mBitmap) {
+        String sdStatus = Environment.getExternalStorageState();
+        if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+        return;
+        }
+        FileOutputStream b = null;
+        File file = new File(path);
+        file.mkdirs();// 创建文件夹
+        String fileName = path + "head.jpg";// 图片名字
+        try {
+        b = new FileOutputStream(fileName);
+        mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+        } catch (FileNotFoundException e) {
+        e.printStackTrace();
+        } finally {
+        try {
+        // 关闭流
+        //
+        assert b != null;
+        b.flush();
+        b.close();
+        } catch (IOException e) {
+        e.printStackTrace();
+        }
+        }
+        }
+    */
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

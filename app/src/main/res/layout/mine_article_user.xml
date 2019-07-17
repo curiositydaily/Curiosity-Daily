@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/mine_background" />
+
+    <!-- 退出登录 -->
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_exit" />
+
+    <!-- 退出系统 -->
+    <Button
+        android:id="@+id/btn_exit_app"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_exit_app" />
+
+    <!-- 返回 -->
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_return" />
+
+</LinearLayout>

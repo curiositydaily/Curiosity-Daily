@@ -103,7 +103,7 @@ public class DesignContentActivity extends AppCompatActivity implements AdapterV
         gridView.setOnItemClickListener(this);
     }
 
-    private void getData() {
+    public void getData() {
         int length=0;
         if(typeFlag==1){length = designImage.length;}
         else{length = designHeadImage.length;}

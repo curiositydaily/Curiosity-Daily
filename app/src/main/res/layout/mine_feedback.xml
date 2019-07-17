@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/mine_background" />
+
+    <EditText
+        android:id="@+id/et_mine_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="@string/tab_mine_feedback"
+        />
+
+    <!--提交-->
+    <Button
+        android:id="@+id/btn_feedback_sub"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_sub" />
+
+    <!--返回-->
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_return" />
+
+</LinearLayout>

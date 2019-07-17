@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/mine_background" />
+
+    <!--头像-->
+    <TextView
+        android:id="@+id/tv_mine_info_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_mine_info_head"
+        android:textSize="20sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"/>
+
+    <ImageButton
+        android:id="@+id/ib_head"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/mine_head"
+        tools:src="@drawable/mine_head" />
+
+
+
+    <!--昵称-->
+    <TextView
+        android:id="@+id/tv_mine_info_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mine_info_name"
+        android:textSize="20sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"/>
+
+    <EditText
+        android:id="@+id/et_mine_info_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:maxLines="1"/>
+
+
+
+
+    <!--个签-->
+    <TextView
+        android:id="@+id/tv_mine_info_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mine_info_sign"
+        android:textSize="20sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"/>
+
+    <EditText
+        android:id="@+id/et_mine_info_sign"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:maxLines="1"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" />
+
+    <Button
+        android:id="@+id/btn_info_sub"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_sub" />
+
+    <!-- 返回 -->
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_return" />
+
+    <!-- 退出登录 -->
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_exit" />
+
+</LinearLayout>

@@ -34,6 +34,20 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFr
     private MineFragment mineFragment;
     private FragmentManager fManager;
 
+    // 在该方法传入一标志位标识是否要退出App & 关闭自身
+    //@Override
+    //protected void onNewIntent(Intent intent) {
+    //    super.onNewIntent(intent);
+    //    if (intent != null) {
+            // 是否退出App的标识
+    //        boolean isExitApp = intent.getBooleanExtra("exit", false);
+    //        if (isExitApp) {
+                // 关闭自身
+    //            this.finish();
+    //        }
+    //    }
+    //}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

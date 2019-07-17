@@ -12,12 +12,25 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="tab_mine_article">     我发布的内容</string>
-    <string name="tab_mine_commendation">     我赞过的内容</string>
-    <string name="tab_mine_attention">     我关注的人</string>
+    <string name="tab_mine_article">     账号操作</string>
+    <string name="tab_mine_commendation">     我的发现</string>
+    <string name="tab_mine_attention">     我的关注</string>
     <string name="tab_mine_feedback">     意见反馈</string>
     <string name="tab_mine_protocol">     用户协议</string>
-    <string name="user_name">用户名</string>
-    <string name="user_phone">phone</string>
+    <string name="user_name">honey</string>
+    <string name="user_phone">happy!</string>
+    <string name="fragment_other">.      用户须知：
+        好奇心日报APP主要有用户对文章的操作、对个人信息的操作以及对设计版块的操作。
+        其中对文章的操作包含发布文章、点赞评论文章、关注其他用户等；
+        对个人信息的操作包含修改和查看，以及系统消息；
+        设计版块则包括对头像、壁纸的浏览和保存。</string>
+    <string name="fragment_return">返回</string>
+    <string name="mine_change">确认更改</string>
+    <string name="mine_info_name">昵称</string>
+    <string name="mine_info_sign">个签</string>
+    <string name="tv_mine_info_head">头像</string>
+    <string name="fragment_sub">提交</string>
+    <string name="btn_exit">退出登录</string>
+    <string name="btn_exit_app">重新注册</string>
 
 </resources>
