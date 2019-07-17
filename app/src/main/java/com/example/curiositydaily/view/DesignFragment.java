@@ -110,12 +110,7 @@ public class DesignFragment extends Fragment{
         // 初始化设计专题内容
 //        initUserDesign();
 
-        // 显示设计专题内容
-        List<UserDesign> test_list = new ArrayList<UserDesign>();
-        test_list = SQLiteDB.getInstance((getActivity().getApplicationContext())).loadUserDesign();
-//        for( UserDesign ud : test_list){
-//            System.out.println(ud.toString());
-//        }
+
 
 //        this.getActivity().setContentView(R.layout.activity_design);
 //        this.getActivity().getWindow().setStatusBarColor(0xffffcc66);
@@ -200,9 +195,16 @@ public class DesignFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(),"第"+position+"个item",Toast.LENGTH_SHORT).show();
+                // 显示设计专题内容
+//                List<UserDesign> test_list = new ArrayList<UserDesign>();
+//                test_list = SQLiteDB.getInstance((getActivity().getApplicationContext())).loadUserDesign(position+1);
+//                for( UserDesign ud : test_list){
+//                    System.out.println(ud.toString());
+//                }
+
                 // 跳转显示详细设计内容页面
                 Intent intent = new Intent(getActivity(), DesignContentActivity.class);
-                intent.putExtra("data",String.valueOf(position));
+                intent.putExtra("design_id",String.valueOf(position));
                 startActivity(intent);
             }
 
@@ -272,6 +274,7 @@ public class DesignFragment extends Fragment{
         UserDesign userDesign1 = new UserDesign();
         userDesign1.setId(1);
         userDesign1.setName("打造你的专属壁纸");
+        userDesign1.setImage("https://api.androidhive.info/json/movies/15.jpg");
         userDesign1.setType(1);
         userDesign1.setIntroduction("多种样式供你选择");
         userDesign1.setCommendation(20);
@@ -280,6 +283,7 @@ public class DesignFragment extends Fragment{
 
         userDesign1.setId(2);
         userDesign1.setName("好看的头像万里挑一");
+        userDesign1.setImage("https://api.androidhive.info/json/movies/8.jpg");
         userDesign1.setType(0);
         userDesign1.setIntroduction("满足你的所有需求");
         userDesign1.setCommendation(50);
@@ -288,6 +292,7 @@ public class DesignFragment extends Fragment{
 
         userDesign1.setId(3);
         userDesign1.setName("夏日壁纸");
+        userDesign1.setImage("https://api.androidhive.info/json/movies/13.jpg");
         userDesign1.setType(0);
         userDesign1.setIntroduction("给夏天降降温");
         userDesign1.setCommendation(100);

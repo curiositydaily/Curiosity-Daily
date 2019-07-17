@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        this.deleteDatabase("curiosity_db");
+
         // 首先显示登录界面
         setContentView(R.layout.user_login);
 

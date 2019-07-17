@@ -13,12 +13,13 @@ import com.example.curiositydaily.model.UserLogin;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    private static final String DB_NAME = "curiosity_db";
     // 建立用户登录表语句
     public static final String CREATE_USER_LOGIN = "create table user_login(id integer primary key autoincrement,number text,password text)";
     // 建立用户信息表语句
     public static final String CREATE_USER_INFO = "create table user_info(id integer primary key autoincrement,image text,name text,introduction text)";
     // 建立设计专题表
-    public static final String CREATE_USER_DESIGN = "create table user_design(id integer primary key autoincrement,name text,type integer,introduction text,commendation integer)";
+    public static final String CREATE_USER_DESIGN = "create table user_design(id integer primary key autoincrement,name text,type integer,image text,introduction text,commendation integer)";
     // 建立专题内容表
     public static final String CREATE_DESIGN_CONTENT = "create table design_content(id integer primary key autoincrement,design_id integer,image_url text)";
     // 建立发布文章表
@@ -50,5 +51,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+    }
+
+    // 删除数据库
+    public boolean deleteDatabase(Context context){
+        return context.deleteDatabase(DB_NAME);
     }
 }

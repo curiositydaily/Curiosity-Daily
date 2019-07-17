@@ -122,15 +122,16 @@ public class SQLiteDB {
 
     /* user_design 设计专题表 */
     // 读取设计专题表信息
-    public List<UserDesign> loadUserDesign() {
+    public List<UserDesign> loadUserDesign(int design_id) {
         List<UserDesign> list = new ArrayList<UserDesign>();
-        Cursor cursor = db.rawQuery("select * from user_design ",null);
+        Cursor cursor = db.rawQuery("select * from user_design where id =?",new String[]{String.valueOf(design_id)});
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 UserDesign userDesign = new UserDesign();
                 userDesign.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 userDesign.setName(cursor.getString(cursor.getColumnIndex("name")));
                 userDesign.setType(cursor.getInt(cursor.getColumnIndex("type")));
+                userDesign.setImage(cursor.getString(cursor.getColumnIndex("image")));
                 userDesign.setIntroduction(cursor.getString(cursor.getColumnIndex("introduction")));
                 userDesign.setCommendation(cursor.getInt(cursor.getColumnIndex("commendation")));
                 list.add(userDesign);
@@ -143,8 +144,8 @@ public class SQLiteDB {
     public boolean saveUserDesign(UserDesign userDesign){
         if(userDesign != null) {
             try {
-                db.execSQL("insert into user_design(name,type,introduction,commendation) values(?,?,?,?)",
-                        new String[]{userDesign.getName().toString(), String.valueOf(userDesign.getType()), userDesign.getIntroduction(), String.valueOf(userDesign.getCommendation())});
+                db.execSQL("insert into user_design(name,image,type,introduction,commendation) values(?,?,?,?,?)",
+                        new String[]{userDesign.getName().toString(), userDesign.getImage(),String.valueOf(userDesign.getType()), userDesign.getIntroduction(), String.valueOf(userDesign.getCommendation())});
                 return true;
             } catch (Exception e) {
                 Log.d("插入专题表信息错误", e.getMessage().toString());

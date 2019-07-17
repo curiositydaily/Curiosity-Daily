@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.curiositydaily">
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.example.curiositydaily.app.AppController"
@@ -28,6 +35,14 @@
         <!-- 设计内容 -->
         <activity android:name=".view.DesignContentActivity"></activity>
 
+        <activity android:name=".view.ImageGridActivity"></activity>
+        <activity android:name=".view.TestPicActivity" />
+        <activity android:name=".view.PhotoActivity" />
+        <activity android:name=".view.PublishActivity" />
+        <activity android:name=".view.AttentionContentActivity" />
+        <activity android:name=".view.HomeSearchActivity" />
+        <activity android:name=".view.RecommodContentActivity"
+            tools:ignore="DuplicateActivity" />
     </application>
 
 </manifest>
