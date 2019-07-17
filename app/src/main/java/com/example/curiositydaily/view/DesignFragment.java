@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.os.TestLooperManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -103,6 +105,8 @@ public class DesignFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design, container, false);
 
+//        TextView textView = (TextView)view.findViewById(R.id.design_tab_menu_search);
+
         // 初始化设计专题内容
 //        initUserDesign();
 
@@ -121,10 +125,9 @@ public class DesignFragment extends Fragment{
         adapter = new CustomListAdapter(getActivity(), userDesignsList);
         listView.setAdapter(adapter);
 
-//        pDialog = new ProgressDialog(getActivity());
-//        pDialog.setMessage("Loading...");
-//        pDialog.show();
-
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("正在努力加载中...");
+        pDialog.show();
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFCC66")));
 
         // 创建Volley响应对象
@@ -197,6 +200,7 @@ public class DesignFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(),"第"+position+"个item",Toast.LENGTH_SHORT).show();
+                // 跳转显示详细设计内容页面
                 Intent intent = new Intent(getActivity(), DesignContentActivity.class);
                 intent.putExtra("data",String.valueOf(position));
                 startActivity(intent);
