@@ -1,6 +1,7 @@
 package com.example.curiositydaily.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,12 +14,13 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.curiositydaily.R;
+import com.example.curiositydaily.model.SQLiteDB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
     private TextView textView1,textView2;
     private List<Fragment> fragmentList;
     private VpAdapter mAdapter;
+    private SQLiteDB db;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -88,6 +91,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener, View
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 //        TextView txt_home = (TextView)view.findViewById(R.id.txt_home);
 //        txt_home.setText("首页");
+        ImageButton home_search_imagebtn = (ImageButton) view.findViewById(R.id.home_search_imagebtn);
+        ImageButton home_publish_imagebtn = (ImageButton) view.findViewById(R.id.home_publish_imagebtn);
+        home_search_imagebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),HomeSearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        home_publish_imagebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),PublishActivity.class);
+                startActivity(intent);
+            }
+        });
         initView(view);
 
         return view;

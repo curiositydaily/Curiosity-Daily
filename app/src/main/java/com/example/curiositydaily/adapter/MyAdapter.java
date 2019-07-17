@@ -2,7 +2,6 @@ package com.example.curiositydaily.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
-
 import java.util.List;
 
 import com.example.curiositydaily.R;
-import com.example.curiositydaily.view.MainActivity;
 import com.example.curiositydaily.view.RecommodContentActivity;
-import com.example.curiositydaily.view.RecommodContentFragment;
-import com.example.curiositydaily.view.RecommodData;
-import com.example.curiositydaily.view.RecommodFragment;
+import com.example.curiositydaily.model.RecommodData;
 
 public class MyAdapter extends BaseAdapter {
     private List<RecommodData> mData;
@@ -52,7 +45,7 @@ public class MyAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if(view == null){
             viewHolder = new ViewHolder();
-            view = LayoutInflater.from(mContext).inflate(R.layout.list_item,null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.list_item_recommod,null);
             viewHolder.title = (TextView) view.findViewById(R.id.title);
             viewHolder.info = (TextView)view.findViewById(R.id.info);
             viewHolder.writer = (TextView) view.findViewById(R.id.writer);
@@ -61,14 +54,14 @@ public class MyAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) view.getTag();
         }
-        view.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(mContext, RecommodContentActivity.class);
-                mContext.startActivity(intent);
-
-            }
-        });
+//        view.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view){
+//                Intent intent = new Intent(mContext, RecommodContentActivity.class);
+//                mContext.startActivity(intent);
+//
+//            }
+//        });
         viewHolder.image.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

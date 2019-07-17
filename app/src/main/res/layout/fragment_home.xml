@@ -10,16 +10,29 @@
         android:layout_height="36dp"
         android:orientation="horizontal"
         tools:ignore="UselessParent">
+
+        <ImageButton
+            android:id="@+id/home_search_imagebtn"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_search_black_24dp"
+            android:background="@color/bg_white"/>
         <TextView
             android:id="@+id/home_tab_menu_recommod"
             android:text="推荐"
-            style="@style/tab_menu_item"
+            style="@style/home_tab_menu_item"
             tools:ignore="HardcodedText"/>
         <TextView
             android:id="@+id/home_tab_menu_attention"
             android:text="关注"
-            style="@style/tab_menu_item"
+            style="@style/home_tab_menu_item"
             tools:ignore="HardcodedText"/>
+        <ImageButton
+            android:id="@+id/home_publish_imagebtn"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_add_black_24dp"
+            android:background="@color/bg_white"/>
     </LinearLayout>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/home_vp_fragment"

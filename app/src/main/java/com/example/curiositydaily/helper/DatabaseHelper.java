@@ -26,6 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_USER_ARTICLE = "create table user_article(id integer primary key autoincrement,user_id integer,title text,content text,commendation integer)";
     // 建立关注表
     public static final String CREATE_USER_ATTENTION = "create table user_attention(id integer primary key autoincrement,user_id integer)";
+    //创建搜索历史表
+    public static final String CREATE_SEARCH_HISTORY = "create table records(id integer primary key autoincrement,name text)";
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,int version) {
         super(context, name, null, version);
@@ -46,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_USER_ARTICLE);
         // 创建关注表user_attention
         db.execSQL(CREATE_USER_ATTENTION);
+        db.execSQL(CREATE_SEARCH_HISTORY);
     }
 
     @Override

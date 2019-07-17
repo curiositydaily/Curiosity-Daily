@@ -3,12 +3,9 @@ package com.example.curiositydaily.model;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.util.Log;
 
-import com.example.curiositydaily.R;
 import com.example.curiositydaily.helper.DatabaseHelper;
-import com.example.curiositydaily.view.DesignFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,8 +19,16 @@ public class SQLiteDB {
     public static final int DB_VERSION = 1;
     private static SQLiteDB sqliteDB;
     private SQLiteDatabase db;
-    private SQLiteDB(Context context){
-        DatabaseHelper dbHelper = new DatabaseHelper(context,DB_NAME,null, DB_VERSION);
+    private Context context;
+    private DatabaseHelper dbHelper;
+
+    public SQLiteDB(Context context){
+        this.context = context;
+        init();
+
+    }
+    private void init() {
+        dbHelper = new DatabaseHelper(context,DB_NAME,null, DB_VERSION);
         db = dbHelper.getWritableDatabase();
     }
 
@@ -92,9 +97,14 @@ public class SQLiteDB {
     // 保存用户个人信息
     public boolean saveUserInfo(UserInfo userInfo){
         if(userInfo != null){
+            System.out.println("-----------------2-------"+userInfo.toString());
             try {
+                System.out.println(userInfo.getImage().toString());
+                System.out.println(userInfo.getName().toString());
+                System.out.println(userInfo.getIntroduction().toString());
                 db.execSQL("insert into user_info(image,name,introduction) values(?,?,?)",
-                        new String[]{userInfo.getImage().toString(),userInfo.getName().toString(),userInfo.getIntroduction()});
+                        new String[]{userInfo.getImage().toString(),userInfo.getName().toString(),userInfo.getIntroduction().toString()});
+                System.out.println("---------3---------------"+userInfo.toString());
                 return true;
             }catch (Exception e){
                 Log.d("保存用户个人信息错误",e.getMessage().toString());
@@ -106,15 +116,17 @@ public class SQLiteDB {
     // 查询用户个人信息，通过user_login的id来对应查找，返回登录对象
     //    一个id对应一个登陆账号&用户信息
     public UserInfo queryUserInfo(int id){
-        Cursor cursor = db.query("user_info", null, ID+"=?",new String[]{"id"}, null, null, null, null);
-        if (cursor.moveToFirst()) {
+        Cursor cursor = db.rawQuery("select * from user_info where id=?",
+                new String[]{String.valueOf(id)});
+//        Cursor cursor = db.query("user_info", null, ID+"=?",new String[]{"id"}, null, null, null, null);
+        if (cursor!=null && cursor.moveToFirst()) {
             UserInfo userInfo = new UserInfo();
             do {
                 userInfo.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 userInfo.setName(cursor.getString(cursor.getColumnIndex("name")));
                 userInfo.setImage(cursor.getString(cursor.getColumnIndex("image")));
                 userInfo.setIntroduction(cursor.getString(cursor.getColumnIndex("introduction")));
-            } while (cursor.moveToFirst());
+            } while (cursor.moveToNext());
             return userInfo;
         }
         return null;
@@ -143,21 +155,15 @@ public class SQLiteDB {
 
     // 插入设计专题表信息
     public boolean saveUserDesign(UserDesign userDesign){
-        if(userDesign != null){
-            Cursor cursor = db.rawQuery("select * from user_design where name=?",
-                    new String[]{userDesign.getName()});
-            if(cursor.getCount() > 0){
-                return false;
-            }else{
-                try {
-                    db.execSQL("insert into user_design(name,image,type,introduction,commendation) values(?,?,?,?,?)",
-                            new String[]{userDesign.getName().toString(), userDesign.getImage(),String.valueOf(userDesign.getType()), userDesign.getIntroduction(), String.valueOf(userDesign.getCommendation())});
-                    return true;
-                } catch (Exception e) {
-                    Log.d("插入专题表信息错误", e.getMessage().toString());
-                }
-                return false;
+        if(userDesign != null) {
+            try {
+                db.execSQL("insert into user_design(name,image,type,introduction,commendation) values(?,?,?,?,?)",
+                        new String[]{userDesign.getName().toString(), userDesign.getImage(),String.valueOf(userDesign.getType()), userDesign.getIntroduction(), String.valueOf(userDesign.getCommendation())});
+                return true;
+            } catch (Exception e) {
+                Log.d("插入专题表信息错误", e.getMessage().toString());
             }
+            return false;
         }
         return false;
     }
@@ -182,18 +188,18 @@ public class SQLiteDB {
     // 插入专题内容信息
     public boolean saveDesignContent(DesignContent designContent){
         if(designContent != null){
-            Cursor cursor = db.rawQuery("select * from design_content where image_url=?",
-                    new String[]{designContent.getImageurl()});
+            Cursor cursor = db.rawQuery("select * from user_design where id=?",
+                    new String[]{String.valueOf(designContent.getId())});
             if(cursor.getCount() > 0){
                 return false;
             }else{
                 try {
-                    db.execSQL("insert into design_content(id,design_id,image_url) values(?,?,?)",
-                            new String[]{String.valueOf(designContent.getId()),String.valueOf(designContent.getDesignId()),designContent.getImageurl().toString()});
-                    return true;
+                    db.execSQL("insert into design_content(design_id,image_url) values(?,?)",
+                            new String[]{String.valueOf(designContent.getDesignId()),designContent.getImageurl().toString()});
                 }catch (Exception e){
                     Log.d("插入专题内容信息错误",e.getMessage().toString());
                 }
+                return true;
             }
         }
         return false;
@@ -204,6 +210,7 @@ public class SQLiteDB {
     public List<UserArticle> loadUserArticle(){
         List<UserArticle> list = new ArrayList<UserArticle>();
         Cursor cursor = db.query("user_article",null,null,null,null,null,null);
+//        Cursor cursor = db.rawQuery("select * from user_article",null);
         if(cursor!=null && cursor.moveToFirst()){
             do{
                 UserArticle userArticle =  new UserArticle();
@@ -216,6 +223,18 @@ public class SQLiteDB {
             }while(cursor.moveToNext());
         }
         return list;
+    }
+    // 插入文章信息
+    public boolean saveUserArticle(UserArticle userArticle){
+        try {
+            db.execSQL("insert into user_article(id,user_id,title,content,commendation) values(?,?,?,?,?)",
+                    new String[]{String.valueOf(userArticle.getId()),String.valueOf(userArticle.getUserId()),userArticle.getTitle().toString(),
+                            userArticle.getContent(),String.valueOf(userArticle.getCommendation())});
+            return true;
+        }catch (Exception e){
+            Log.d("插入文章信息错误",e.getMessage().toString());
+        }
+        return false;
     }
 
     // 依据标题查找文章内容，返回该对象
@@ -235,29 +254,23 @@ public class SQLiteDB {
         }
         return null;
     }
-
-    // 插入文章信息
-    public boolean saveUserArticle(UserArticle userArticle){
-        if(userArticle!=null){
-            Cursor cursor = db.rawQuery("select * from user_article where user_id=? and title=?",
-                    new String[]{String.valueOf(userArticle.getUserId()),userArticle.getTitle()});
-            if(cursor.getCount()>0){
-                return false;
-            }else{
-                try {
-                    db.execSQL("insert into user_article(id,user_id,title,content,commendation) values(?,?,?,?,?)",
-                            new String[]{String.valueOf(userArticle.getId()),String.valueOf(userArticle.getUserId()),userArticle.getTitle().toString(),
-                                    userArticle.getContent(),String.valueOf(userArticle.getCommendation())});
-                    return true;
-                }catch (Exception e){
-                    Log.d("插入文章信息错误",e.getMessage().toString());
-                }
-            }
+    public UserArticle queryArticleInfo(int id){
+        Cursor cursor = db.rawQuery("select * from user_article where id=?",
+                new String[]{String.valueOf(id)});
+//        Cursor cursor = db.query("user_info", null, ID+"=?",new String[]{"id"}, null, null, null, null);
+        if (cursor!=null && cursor.moveToFirst()) {
+            UserArticle userArticle = new UserArticle();
+            do {
+                userArticle.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                userArticle.setTitle(cursor.getString(cursor.getColumnIndex("title")));
+                userArticle.setContent(cursor.getString(cursor.getColumnIndex("content")));
+                userArticle.setCommendation(cursor.getInt(cursor.getColumnIndex("commendation")));
+                userArticle.setUserId(cursor.getInt(cursor.getColumnIndex("user_id")));
+            } while (cursor.moveToNext());
+            return userArticle;
         }
-
-        return false;
+        return null;
     }
-
     /* user_attention 关注表 */
     // 读取关注表信息
     public List<UserAttention> loadUserAttention(){
@@ -273,4 +286,72 @@ public class SQLiteDB {
         }
         return list;
     }
+    /*搜索历史*/
+    public List<String> queryData(String tempName) {
+        List<String> data = new ArrayList<>();
+        //模糊搜索
+        Cursor cursor = dbHelper.getReadableDatabase().rawQuery(
+                "select id as _id,name from records where name like '%" + tempName + "%' order by id desc ", null);
+
+        while (cursor.moveToNext()) {
+            //注意这里的name跟建表的name统一
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            data.add(name);
+        }
+        cursor.close();
+        return data;
+
+    }
+
+    /**
+     * 检查数据库中是否已经有该条记录
+     *
+     * @param tempName
+     * @return
+     */
+    public boolean hasData(String tempName) {
+        //从Record这个表里找到name=tempName的id
+        Cursor cursor = dbHelper.getReadableDatabase().rawQuery(
+                "select id as _id,name from records where name =?", new String[]{tempName});
+        //判断是否有下一个
+        return cursor.moveToNext();
+    }
+
+    /**
+     * 插入数据
+     *
+     * @param tempName
+     */
+    public void insertData(String tempName) {
+        db = dbHelper.getWritableDatabase();
+        db.execSQL("insert into records(name) values('" + tempName + "')");
+        db.close();
+    }
+
+    /**
+     * 插入数据
+     *
+     * @param name
+     * @return
+     */
+
+    public int delete(String name) {
+        // 获取数据
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // 执行SQL
+        int delete = db.delete("records", " name=?", new String[]{name});
+        // 关闭数据库连接
+        db.close();
+        return delete;
+    }
+
+    /**
+     * 清空数据
+     */
+    public void deleteData() {
+        db = dbHelper.getWritableDatabase();
+        db.execSQL("delete from records");
+        db.close();
+    }
+
 }

@@ -1,23 +1,37 @@
 package com.example.curiositydaily.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.curiositydaily.R;
+import com.example.curiositydaily.adapter.AttentionPeopleAdapter;
+import com.example.curiositydaily.adapter.MyAdapter;
+import com.example.curiositydaily.model.PeopleData;
+import com.example.curiositydaily.model.RecommodData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AttentionFragment.OnFragmentInteractionListener} interface
+ * {@link RecommodFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AttentionFragment#newInstance} factory method to
+ * Use the {@link RecommodFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class AttentionFragment extends Fragment {
@@ -29,6 +43,9 @@ public class AttentionFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Context mContext;
+    private ArrayList<PeopleData> datas = null;
+    private FragmentManager fManager = null;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,7 +59,7 @@ public class AttentionFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AttentionFragment.
+     * @return A new instance of fragment RecommodFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static AttentionFragment newInstance(String param1, String param2) {
@@ -66,8 +83,35 @@ public class AttentionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_attention, container, false);
+        View view = inflater.inflate(R.layout.fragment_attention, container, false);
+        return view;
+    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        final List<PeopleData> datas = new ArrayList<>();
+        ListView list_attention = (ListView)getView().findViewById(R.id.list_attention);
+        AttentionPeopleAdapter ma = new AttentionPeopleAdapter(datas, getActivity());
+        list_attention.setAdapter(ma);
+        for (int i = 1; i <= 20; i++) {
+            PeopleData data = new PeopleData("第" + i+"个关注的人的名字", "第" + i+"个关注的人的简介",R.mipmap.ic_launcher);
+            datas.add(data);
+        }
+        list_attention.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                PeopleData data1 = datas.get(i);
+                Toast.makeText(getActivity(),data1.getName(),Toast.LENGTH_SHORT).show();
+                Intent intent  =new Intent(getActivity(),MainActivity.class);
+                intent.putExtra("obj", (CharSequence) data1);
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("arg1","关注的人详情");
+                bundle1.putString("name",data1.getName());
+                intent.putExtra("bundle",bundle1);
+                startActivity(intent);
+            }
+        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

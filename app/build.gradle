@@ -36,4 +36,5 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.0'
+    implementation 'com.sackcentury:shinebutton:1.0.0'
 }
