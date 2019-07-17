@@ -31,7 +31,7 @@ public class UserInfo {
     // 设置
     public void setId(int id){ this.id = id;}
     public void setImage(String image){ this.image = image;}
-    public void setName(String Name){ this.name = name;}
+    public void setName(String name){ this.name = name;}
     public void setIntroduction(String introduction){ this.introduction = introduction;}
 
     // 获取

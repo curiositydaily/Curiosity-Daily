@@ -108,9 +108,7 @@ public class DesignFragment extends Fragment{
 //        TextView textView = (TextView)view.findViewById(R.id.design_tab_menu_search);
 
         // 初始化设计专题内容
-//        initUserDesign();
-
-
+        initUserDesign();
 
 //        this.getActivity().setContentView(R.layout.activity_design);
 //        this.getActivity().getWindow().setStatusBarColor(0xffffcc66);
@@ -194,7 +192,7 @@ public class DesignFragment extends Fragment{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(),"第"+position+"个item",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),"第"+position+"个item",Toast.LENGTH_SHORT).show();
                 // 显示设计专题内容
 //                List<UserDesign> test_list = new ArrayList<UserDesign>();
 //                test_list = SQLiteDB.getInstance((getActivity().getApplicationContext())).loadUserDesign(position+1);
@@ -272,7 +270,6 @@ public class DesignFragment extends Fragment{
     // 初始化设计专题内容
     public void initUserDesign(){
         UserDesign userDesign1 = new UserDesign();
-        userDesign1.setId(1);
         userDesign1.setName("打造你的专属壁纸");
         userDesign1.setImage("https://api.androidhive.info/json/movies/15.jpg");
         userDesign1.setType(1);
@@ -281,7 +278,6 @@ public class DesignFragment extends Fragment{
         if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
         else System.out.println("插入设计专题失败!");
 
-        userDesign1.setId(2);
         userDesign1.setName("好看的头像万里挑一");
         userDesign1.setImage("https://api.androidhive.info/json/movies/8.jpg");
         userDesign1.setType(0);
@@ -290,12 +286,43 @@ public class DesignFragment extends Fragment{
         if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
         else System.out.println("插入设计专题失败!");
 
-        userDesign1.setId(3);
         userDesign1.setName("夏日壁纸");
         userDesign1.setImage("https://api.androidhive.info/json/movies/13.jpg");
         userDesign1.setType(1);
         userDesign1.setIntroduction("给夏天降降温");
         userDesign1.setCommendation(100);
+        if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
+        else System.out.println("插入设计专题失败!");
+
+        userDesign1.setName("超炫酷头像合辑");
+        userDesign1.setImage("https://api.androidhive.info/json/movies/4.jpg");
+        userDesign1.setType(0);
+        userDesign1.setIntroduction("今天也很酷");
+        userDesign1.setCommendation(35);
+        if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
+        else System.out.println("插入设计专题失败!");
+
+        userDesign1.setName("呆萌头像大盘点");
+        userDesign1.setImage("https://api.androidhive.info/json/movies/11.jpg");
+        userDesign1.setType(0);
+        userDesign1.setIntroduction("小黄人专题");
+        userDesign1.setCommendation(120);
+        if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
+        else System.out.println("插入设计专题失败!");
+
+        userDesign1.setName("沙尘飞扬");
+        userDesign1.setImage("https://api.androidhive.info/json/movies/1.jpg");
+        userDesign1.setType(0);
+        userDesign1.setIntroduction("那些战场上的飒爽英姿");
+        userDesign1.setCommendation(20);
+        if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
+        else System.out.println("插入设计专题失败!");
+
+        userDesign1.setName("蜘蛛侠——我的童年英雄");
+        userDesign1.setImage("https://api.androidhive.info/json/movies/7.jpg");
+        userDesign1.setType(1);
+        userDesign1.setIntroduction("我有一个英雄梦");
+        userDesign1.setCommendation(35);
         if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
         else System.out.println("插入设计专题失败!");
     }

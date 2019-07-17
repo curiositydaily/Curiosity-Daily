@@ -93,8 +93,9 @@ public class SQLiteDB {
     public boolean saveUserInfo(UserInfo userInfo){
         if(userInfo != null){
             try {
-                db.execSQL("insert into user_info(iamge,name,introduction) values(?,?,?)",
+                db.execSQL("insert into user_info(image,name,introduction) values(?,?,?)",
                         new String[]{userInfo.getImage().toString(),userInfo.getName().toString(),userInfo.getIntroduction()});
+                return true;
             }catch (Exception e){
                 Log.d("保存用户个人信息错误",e.getMessage().toString());
             }
@@ -142,15 +143,21 @@ public class SQLiteDB {
 
     // 插入设计专题表信息
     public boolean saveUserDesign(UserDesign userDesign){
-        if(userDesign != null) {
-            try {
-                db.execSQL("insert into user_design(name,image,type,introduction,commendation) values(?,?,?,?,?)",
-                        new String[]{userDesign.getName().toString(), userDesign.getImage(),String.valueOf(userDesign.getType()), userDesign.getIntroduction(), String.valueOf(userDesign.getCommendation())});
-                return true;
-            } catch (Exception e) {
-                Log.d("插入专题表信息错误", e.getMessage().toString());
+        if(userDesign != null){
+            Cursor cursor = db.rawQuery("select * from user_design where name=?",
+                    new String[]{userDesign.getName()});
+            if(cursor.getCount() > 0){
+                return false;
+            }else{
+                try {
+                    db.execSQL("insert into user_design(name,image,type,introduction,commendation) values(?,?,?,?,?)",
+                            new String[]{userDesign.getName().toString(), userDesign.getImage(),String.valueOf(userDesign.getType()), userDesign.getIntroduction(), String.valueOf(userDesign.getCommendation())});
+                    return true;
+                } catch (Exception e) {
+                    Log.d("插入专题表信息错误", e.getMessage().toString());
+                }
+                return false;
             }
-            return false;
         }
         return false;
     }
@@ -175,18 +182,18 @@ public class SQLiteDB {
     // 插入专题内容信息
     public boolean saveDesignContent(DesignContent designContent){
         if(designContent != null){
-            Cursor cursor = db.rawQuery("select * from user_design where id=?",
-                    new String[]{String.valueOf(designContent.getId())});
+            Cursor cursor = db.rawQuery("select * from design_content where image_url=?",
+                    new String[]{designContent.getImageurl()});
             if(cursor.getCount() > 0){
                 return false;
             }else{
                 try {
-                    db.execSQL("insert into design_content(design_id,image_url) values(?,?)",
-                            new String[]{String.valueOf(designContent.getDesignId()),designContent.getImageurl().toString()});
+                    db.execSQL("insert into design_content(id,design_id,image_url) values(?,?,?)",
+                            new String[]{String.valueOf(designContent.getId()),String.valueOf(designContent.getDesignId()),designContent.getImageurl().toString()});
+                    return true;
                 }catch (Exception e){
                     Log.d("插入专题内容信息错误",e.getMessage().toString());
                 }
-                return true;
             }
         }
         return false;
@@ -227,6 +234,28 @@ public class SQLiteDB {
             return userArticle;
         }
         return null;
+    }
+
+    // 插入文章信息
+    public boolean saveUserArticle(UserArticle userArticle){
+        if(userArticle!=null){
+            Cursor cursor = db.rawQuery("select * from user_article where user_id=? and title=?",
+                    new String[]{String.valueOf(userArticle.getUserId()),userArticle.getTitle()});
+            if(cursor.getCount()>0){
+                return false;
+            }else{
+                try {
+                    db.execSQL("insert into user_article(id,user_id,title,content,commendation) values(?,?,?,?,?)",
+                            new String[]{String.valueOf(userArticle.getId()),String.valueOf(userArticle.getUserId()),userArticle.getTitle().toString(),
+                                    userArticle.getContent(),String.valueOf(userArticle.getCommendation())});
+                    return true;
+                }catch (Exception e){
+                    Log.d("插入文章信息错误",e.getMessage().toString());
+                }
+            }
+        }
+
+        return false;
     }
 
     /* user_attention 关注表 */

@@ -85,4 +85,24 @@
             <!--android:textSize="@dimen/commendation" />-->
     </RelativeLayout>
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical">
+        <GridView
+            android:id="@+id/showGridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="15dp">
+        </GridView>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
