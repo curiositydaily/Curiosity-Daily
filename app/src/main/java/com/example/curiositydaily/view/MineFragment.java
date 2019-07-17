@@ -6,12 +6,17 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.curiositydaily.R;
 
@@ -25,6 +30,9 @@ import com.example.curiositydaily.R;
  * create an instance of this fragment.
  */
 public class MineFragment extends Fragment {
+
+    private FragmentManager fManager;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -71,11 +79,83 @@ public class MineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_mine, container, false);
-        TextView txt_mine = (TextView) view.findViewById(R.id.txt_mine);
-        txt_mine.setText("我的");
+        View view =  inflater.inflate(R.layout.fragment_mine, container,false);
+        //TextView txt_mine = (TextView) view.findViewById(R.id.txt_mine);
+        //txt_mine.setText("我的");
         return view;
     }
+
+
+
+
+    /* @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_mine, container, false);
+        rootView.findViewById(R.id.rb_mine_protocol).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)  //将当前fragment加入到返回栈中
+                        .replace(R.id.container, new ProtocolFragment()).commit();
+            }
+        });
+        return rootView;
+    }
+    private class ButtonListener implements View.OnClickListener {
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.rb_mine_protocol:
+                    Intent intent= new Intent(getActivity(),ProtocolActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Button button = (Button) getActivity().findViewById(R.id.rb_mine_protocol);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"ceshi",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+
+    private void hideAllFragment(FragmentTransaction fragmentTransaction){
+        //if(homeFragment!=null)fragmentTransaction.hide(homeFragment);
+        //if(designFragment!=null)fragmentTransaction.hide(designFragment);
+        //if(mineFragment!=null)fragmentTransaction.hide(mineFragment);
+    }
+
+    //监听切换
+    private class TabOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener{
+
+        ProtocolFragment protocolFragment;
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId){
+            FragmentTransaction fTransaction = fManager.beginTransaction();
+            hideAllFragment(fTransaction);//隐藏
+            switch (checkedId){
+                case R.id.rb_mine_protocol:
+                    if (protocolFragment == null) {
+                        protocolFragment = new ProtocolFragment();
+                        fTransaction.add(R.id.rb_mine_protocol,protocolFragment);
+                    } else {
+                        fTransaction.show(protocolFragment);
+                    }
+                    break;
+            }
+            fTransaction.commit();
+        }
+    }
+*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
