@@ -2,6 +2,7 @@ package com.example.curiositydaily.view;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -14,7 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -23,6 +28,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.curiositydaily.R;
 import com.example.curiositydaily.adapter.CustomListAdapter;
 import com.example.curiositydaily.app.AppController;
+import com.example.curiositydaily.model.DesignContent;
 import com.example.curiositydaily.model.SQLiteDB;
 import com.example.curiositydaily.model.UserDesign;
 
@@ -46,14 +52,12 @@ import java.util.List;
 public class DesignFragment extends Fragment{
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    // url
     private static final String url = "https://api.androidhive.info/json/movies.json";
     private ProgressDialog pDialog;
     private List<UserDesign> userDesignsList = new ArrayList<UserDesign>();
     private ListView listView;
     private CustomListAdapter adapter;
 
-    //test
     private String name;
     private String image;
     private int type;
@@ -99,16 +103,15 @@ public class DesignFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design, container, false);
 
-
         // 初始化设计专题内容
 //        initUserDesign();
 
         // 显示设计专题内容
         List<UserDesign> test_list = new ArrayList<UserDesign>();
         test_list = SQLiteDB.getInstance((getActivity().getApplicationContext())).loadUserDesign();
-        for( UserDesign ud : test_list){
-            System.out.println(ud.toString());
-        }
+//        for( UserDesign ud : test_list){
+//            System.out.println(ud.toString());
+//        }
 
 //        this.getActivity().setContentView(R.layout.activity_design);
 //        this.getActivity().getWindow().setStatusBarColor(0xffffcc66);
@@ -118,9 +121,9 @@ public class DesignFragment extends Fragment{
         adapter = new CustomListAdapter(getActivity(), userDesignsList);
         listView.setAdapter(adapter);
 
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading...");
-        pDialog.show();
+//        pDialog = new ProgressDialog(getActivity());
+//        pDialog.setMessage("Loading...");
+//        pDialog.show();
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1b1b1b")));
 
@@ -160,7 +163,7 @@ public class DesignFragment extends Fragment{
                             userDesign.setType(type);
                             userDesign.setCommendation(commendation);
                             userDesign.setIntroduction(introduction);
-                            System.out.println(userDesign.toString());
+//                            System.out.println(userDesign.toString());
                             userDesignsList.add(userDesign);
                         }
                         if(i==7){ i=0;index++; }
@@ -187,6 +190,19 @@ public class DesignFragment extends Fragment{
 
         // 加入队列
         AppController.getInstance().addToRequestQueue(movieReq);
+
+
+        // 给listView添加点击事件
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(),"第"+position+"个item",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), DesignContentActivity.class);
+                intent.putExtra("data",String.valueOf(position));
+                startActivity(intent);
+            }
+
+        });
         return view;
     }
 
@@ -273,6 +289,5 @@ public class DesignFragment extends Fragment{
         userDesign1.setCommendation(100);
         if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");
         else System.out.println("插入设计专题失败!");
-
     }
 }

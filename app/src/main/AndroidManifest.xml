@@ -25,6 +25,9 @@
         <!-- 注册活动 -->
         <activity android:name=".view.UserRegisterActivity"></activity>
 
+        <!-- 设计内容 -->
+        <activity android:name=".view.DesignContentActivity"></activity>
+
     </application>
 
 </manifest>
