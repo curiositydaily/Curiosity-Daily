@@ -125,7 +125,7 @@ public class DesignFragment extends Fragment{
 //        pDialog.setMessage("Loading...");
 //        pDialog.show();
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1b1b1b")));
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFCC66")));
 
         // 创建Volley响应对象
         JsonArrayRequest movieReq = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
