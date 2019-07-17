@@ -35,8 +35,8 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/thumbnail"
-            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_alignTop="@+id/image"
+            android:layout_toRightOf="@+id/image"
             android:textSize="@dimen/name"
             android:textStyle="bold" />
 
@@ -48,7 +48,7 @@
             android:layout_below="@id/name"
             android:drawableLeft="@drawable/ic_grade_black_24dp"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_toRightOf="@+id/image"
             android:textColor="@color/type"
             android:textSize="@dimen/type" />
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/type"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_toRightOf="@+id/image"
             android:textColor="@color/introduction"
             android:textSize="@dimen/introduction" />
 
