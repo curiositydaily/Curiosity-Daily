@@ -41,15 +41,23 @@ public class DesignContentActivity extends AppCompatActivity {
         // 获取设计专题信息
         userDesignsList = SQLiteDB.getInstance(getApplicationContext()).loadUserDesign(design_id);
         for( UserDesign ud : userDesignsList){
-            System.out.println(ud.toString());
+//            System.out.println(ud.toString());
             name.setText(ud.getName());
             image.setImageUrl(ud.getImage(),imageLoader);
             if(ud.getType()==0){ type.setText("头像");}
             else{type.setText("壁纸"); }
             introduction.setText(ud.getIntroduction());
-            commendation.setText(String.valueOf(ud.getCommendation()));
-
+//            commendation.setText(String.valueOf(ud.getCommendation()));
         }
+
+        // 初始化壁纸or头像
+        initImage();
+
+        // 显示壁纸or头像
+        
     }
 
+    public void initImage(){
+
+    }
 }

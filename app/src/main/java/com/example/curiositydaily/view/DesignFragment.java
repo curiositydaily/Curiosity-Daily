@@ -293,7 +293,7 @@ public class DesignFragment extends Fragment{
         userDesign1.setId(3);
         userDesign1.setName("夏日壁纸");
         userDesign1.setImage("https://api.androidhive.info/json/movies/13.jpg");
-        userDesign1.setType(0);
+        userDesign1.setType(1);
         userDesign1.setIntroduction("给夏天降降温");
         userDesign1.setCommendation(100);
         if(SQLiteDB.getInstance(getActivity().getApplicationContext()).saveUserDesign(userDesign1)) System.out.println("插入设计专题成功!");

@@ -17,6 +17,7 @@
             android:text="探索"
             android:textSize="18sp"
             android:layout_height="36dp"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:textColor="@color/text_yellow"
             android:layout_width="match_parent" />
